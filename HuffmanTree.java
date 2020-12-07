@@ -22,7 +22,7 @@ public class HuffmanTree {
 		while (pQ.size() >= 2) {
 			HuffmanNode node1 = pQ.poll();
 			HuffmanNode node2 = pQ.poll();
-			pQ.offer(new HuffmanNode(node1, node2));
+			pQ.offer(new HuffmanNode(node1.frequency + node2.frequency, -1, node1, node2));
 		}
 	}
 	
@@ -32,11 +32,7 @@ public class HuffmanTree {
 		public int ascii;
 		public HuffmanNode left, right;
 		
-		public HuffmanNode(HuffmanNode n1, HuffmanNode n2) {
-			this.left = n1;
-			this.right = n2;
-			this.frequency = n1.frequency + n2.frequency;
-		}
+		
 		public HuffmanNode(int frequency, int ascii) {
 			this(frequency, ascii, null, null);
 		 }
