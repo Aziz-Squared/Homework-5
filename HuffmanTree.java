@@ -49,13 +49,7 @@ public class HuffmanTree {
 		 }
 		
 		public int compareTo(HuffmanNode h) {
-			if (this.frequency < h.frequency) {
-				return -1;
-			} else if (this.frequency == h.frequency) {
-				return 0;
-			} else {
-				return 1;
-			}
+			return this.frequency - h.frequency;
 		}
 
 	}
