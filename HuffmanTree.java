@@ -12,10 +12,7 @@ public class HuffmanTree {
 		
 		for (int i = 1; i < count.length; i++) {
 			if (count[i] > 0) {
-				HuffmanNode node = null;
-				node.frequency = count[i];
-				node.ascii = i;
-				pQ.offer(node);
+				pQ.offer(new HuffmanNode(count[i], i);
 			}
 		}
 		
