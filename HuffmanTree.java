@@ -8,6 +8,7 @@ public class HuffmanTree {
 
 	private HuffmanNode overallRoot;
 
+	// Builds a Huffman Tree based on an array of character frequencies.
 	public HuffmanTree(int[] count) {
 		PriorityQueue<HuffmanNode> frequencyCounter = new PriorityQueue<HuffmanNode>();
 
@@ -29,15 +30,20 @@ public class HuffmanTree {
 		overallRoot = frequencyCounter.remove();
 	}
 
+	// Class that manages each node in the tree and stores each frequency in a text
+	// file
 	private class HuffmanNode implements Comparable<HuffmanNode> {
 		public int frequency;
 		public int ascii;
 		public HuffmanNode left, right;
 
+		// Constructs a node with a character's ascii value and frequency
 		public HuffmanNode(int frequency, int ascii) {
 			this(frequency, ascii, null, null);
 		}
 
+		// Constructs a node with a character's ascii value and frequency and links the
+		// left and right subnodes
 		public HuffmanNode(int frequency, int ascii, HuffmanNode left, HuffmanNode right) {
 			this.frequency = frequency;
 			this.ascii = ascii;
@@ -45,12 +51,15 @@ public class HuffmanTree {
 			this.right = right;
 		}
 
+		// Compares two nodes by their frequency and returns their difference
 		public int compareTo(HuffmanNode h) {
 			return this.frequency - h.frequency;
 		}
 
 	}
 
+	// Helper method that helps reconstruct a tree starting with a root from the
+	// contents in the file that is passed
 	private HuffmanNode HuffmanTreeBuilder(HuffmanNode root, int letterCode, String code) {
 		if (root == null) {
 			root = new HuffmanNode(0, -1);
@@ -73,6 +82,7 @@ public class HuffmanTree {
 		return root;
 	}
 
+	// Construct a new Huffman Tree from an input
 	public HuffmanTree(Scanner codeInput) {
 		while (codeInput.hasNextLine()) {
 			int letterCode = Integer.parseInt(codeInput.nextLine());
@@ -81,6 +91,8 @@ public class HuffmanTree {
 		}
 	}
 
+	// Read individual bits from the passed input. Stops reading the output when it
+	// reaches eofValue
 	public void decode(BitInputStream input, PrintStream output, int eofValue) {
 		int charCode = input.readBit();
 		while (charCode != -1) {
@@ -101,12 +113,16 @@ public class HuffmanTree {
 		return -1;
 	}
 
+	// Write the tree to the given output stream and prints the character ascii
+	// value on the next line
 	public void write(PrintStream output) {
 		if (overallRoot != null) {
 			write(output, overallRoot, "");
 		}
 	}
 
+	// Helper method that helps search through tree starting with a root. Prints the
+	// line of code to the given output
 	private void write(PrintStream output, HuffmanNode root, String code) {
 		if (root.left == null && root.right == null) {
 			output.println(root.ascii);
